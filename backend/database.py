@@ -43,7 +43,7 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
     Dependency injection cho FastAPI.
     Mỗi request sẽ có 1 session riêng, tự động close khi xong.
     """
-    async with async_session as session:
+    async with async_session() as session:
         try:
             yield session
         except Exception as e:

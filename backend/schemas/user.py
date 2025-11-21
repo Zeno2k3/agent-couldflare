@@ -14,7 +14,7 @@ class UserBase(BaseModel):
 class UserResponse(UserBase):
     id: int
     is_active: bool = True
-    role: str = "user"  # user, admin, moderator...
+    role: str = "user" 
     created_at: datetime
     updated_at: Optional[datetime] = None
 
@@ -23,13 +23,12 @@ class UserResponse(UserBase):
     }  # mapping sang ORM object thành JSON response
 
 
-
 # Schema dùng khi tạo user mới (register/signup)
 class UserCreate(UserBase):
     password: str = Field(
         ..., 
         min_length=8, 
-        max_length=100,
+        max_length=25,
         description="Mật khẩu từ 8 kí tự trở lên và phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt."
     )
     @field_validator('password')
@@ -44,6 +43,7 @@ class UserCreate(UserBase):
 # Schema dùng khi cập nhật user (chỉ cập nhật một số trường)
 class UserUpdate(BaseModel):
     full_name: Optional[str] = Field(None, min_length=2, max_length=100)
+    email: Optional[EmailStr] = None
     password: Optional[str] = Field(None, min_length=8, max_length=100, description="Mật khẩu từ 8 kí tự trở lên.")
     is_active: Optional[bool] = None
     role: Optional[str] = None
