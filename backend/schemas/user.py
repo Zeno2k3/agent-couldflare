@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr, Field, field_validator
 import re
+from uuid import UUID
 
 
 PASSWORD_REGEX = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?\"':{}|<>]).{8,}$"
@@ -12,7 +13,7 @@ class UserBase(BaseModel):
 
 # Response
 class UserResponse(UserBase):
-    id: int
+    id: int | UUID
     is_active: bool = True
     role: str = "user" 
     created_at: datetime
@@ -65,3 +66,4 @@ class UserLoginResponse(BaseModel):
     user: UserResponse
     access_token: str
     token_type: str = "bearer"
+

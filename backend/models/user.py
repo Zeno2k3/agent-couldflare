@@ -5,6 +5,7 @@ from models.type import str_pk, str_unique, bool_default_true, timestamp, update
 
 from models.base import Base
 
+
 class User(Base):
     __tablename__ = "users"
 
@@ -17,4 +18,4 @@ class User(Base):
     created_at: Mapped[timestamp] 
     updated_at: Mapped[updated_timestamp]
     # Relationship
-    # posts: Mapped[List["Post"]] = relationship(back_populates="author", cascade="all, delete-orphan")
+    chat_histories: Mapped[List["ChatHistory"]] = relationship(back_populates="user", cascade="all, delete-orphan")
